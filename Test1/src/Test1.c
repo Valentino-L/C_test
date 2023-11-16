@@ -83,7 +83,7 @@ int main(int argc, char *argv[]) {
     if (argc != 3 && argc != 4) {
     	printf("Incorrect command line inputs! \n");
     	printf("Format: gcc XXX -o XXX ./XXX XXX rs232_interface XXX \n");
-        return EXIT_FAILURE;
+        return -1;
     }
 
     const char *filePath = argv[1];
@@ -103,7 +103,7 @@ int main(int argc, char *argv[]) {
     FILE *file = fopen(filePath, "r");
     if (file == NULL) {
         perror("Error opening file");
-        return EXIT_FAILURE;
+        return -1;
     }
 
     // read file size
@@ -115,7 +115,7 @@ int main(int argc, char *argv[]) {
     if (fileContent == NULL) {
         perror("Error allocating memory");
         fclose(file);
-        return EXIT_FAILURE;
+        return -1;
     }
 
 
@@ -132,5 +132,5 @@ int main(int argc, char *argv[]) {
 
     free(fileContent);
 
-    return EXIT_SUCCESS;
+    return 0;
 }
