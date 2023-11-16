@@ -62,6 +62,13 @@ int sendOverRS232(const char *data, const char *rs232Interface) {
 
     write(serial_port, data, strlen(data));
 
+    /*
+     Examples of how to read with a buffer:
+
+     char buffer [100];
+     int n = read(serial_port, buffer, sizeof buffer);
+     */
+
     close(serial_port);
 
     return 0;
@@ -75,7 +82,7 @@ int main(int argc, char *argv[]) {
     // check if correct number of command line arguments are provided
     if (argc != 3 && argc != 4) {
     	printf("Incorrect command line inputs! \n");
-    	printf("gcc XXX -o XXX ./XXX XXX rs232_interface XXX \n");
+    	printf("Format: gcc XXX -o XXX ./XXX XXX rs232_interface XXX \n");
         return EXIT_FAILURE;
     }
 
@@ -84,11 +91,13 @@ int main(int argc, char *argv[]) {
     // use either RS232 interface from command line or use a default value
     const char *rs232Interface = (argc == 4) ? argv[3] : "default_RS232";
 
-    // alternatively
     /*
+    alternative method:
+
     char *fileP[] = (char *)malloc(sizeof(char) * 20);;
     scanf("Enter the filePath: %s", fileP);
-    // remember to free it later
+
+    remember to free it later
     */
 
     FILE *file = fopen(filePath, "r");
